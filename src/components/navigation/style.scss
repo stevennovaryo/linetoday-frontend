@@ -1,0 +1,45 @@
+.nav-button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    height: 3.25rem;
+    transition: 0.25s;
+    color: rgb(150, 150, 150);
+}
+
+.nav-brand {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+}
+
+.nav-dropdown {
+    padding: 0.5rem 1rem;
+}
+
+.nav-dropdown a {
+    height: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.navbar-nav a {
+    text-decoration: none;
+}
+
+.nav-button-selected {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0) !important;
+}
+
+.nav-button:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0) !important;
+}
+
+.navigation-bar {
+    padding: 0 !important;
+    height: 3.25rem;
+}
