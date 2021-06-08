@@ -4,7 +4,7 @@ import BookmarkButton from '../bookmarks/bookmarkButton'
 import './style.scss'
 
 export default function Article({articleData, setArticlesGroup}) {
-  let imageStyle = {
+  const imageStyle = {
     backgroundImage: `url(https://obs.line-scdn.net/${articleData.thumbnail.hash}/w644)`,
   }
 

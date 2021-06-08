@@ -61,10 +61,10 @@ export function LineTodayProvider({children}) {
     }, NEWSFEED.POPUP_TIMEOUT)
   }
 
+  
   useEffect(() => {
     setLoading(true)
     initializeLocalStorage()
-
 
     serviceLineToday().then( res => {
       setAllData(res.data)

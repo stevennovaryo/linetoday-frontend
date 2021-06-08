@@ -3,13 +3,9 @@ import { Modal, Spinner } from 'react-bootstrap'
 
 export default function Loading() {
   return (
-    <Modal
-      centered
-      show={true}
-      className='text-center'
-    >
+    <Modal centered show className='text-center'>
       <Modal.Body>
-        <p style={{fontSize: '25px'}} >Loading...</p>
+        <p className='loading-text'>Loading...</p>
         <Spinner animation='border' />
       </Modal.Body>
     </Modal>

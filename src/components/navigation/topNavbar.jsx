@@ -12,6 +12,7 @@ export default function TopNavbar() {
   const location = useLocation()
   const currentSectionName = location.pathname === '/' ? 'top' : location.pathname.slice(1)
 
+
   function getNavButton(sectionData) {
     let cssClass = 'nav-button'
     if (sectionData.name.toLowerCase() === currentSectionName.toLowerCase()) {
@@ -28,6 +29,7 @@ export default function TopNavbar() {
   function getNavButtons(multipleSectionData) {
     return multipleSectionData.map((sectionData) => getNavButton(sectionData))
   }
+
 
   function createDropDown() {
     return (

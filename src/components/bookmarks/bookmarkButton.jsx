@@ -1,47 +1,55 @@
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 import React, { useState, useEffect, useCallback } from 'react'
 import './style.scss'
-import { Bookmark } from 'react-bootstrap-icons';
-import { useLineToday } from '../../context/lineToday';
+import { Bookmark } from 'react-bootstrap-icons'
+import { useLineToday } from '../../context/lineToday'
 
 export default function BookmarkButton({article, setArticlesGroup}) {
   function getBookmarks() {
-    return JSON.parse(localStorage.getItem('bookmarkedArticles'));
+    return JSON.parse(localStorage.getItem('bookmarkedArticles')).sections[0].articles
+  }
+
+  function storeBookmarks(allArticles) {
+    let bookmarkSection = JSON.parse(localStorage.getItem('bookmarkedArticles'))
+    bookmarkSection.sections[0].articles = allArticles
+    setArticlesGroup(bookmarkSection)
+    localStorage.setItem('bookmarkedArticles', JSON.stringify(bookmarkSection))
   }
 
   const isArticleBookmarked = useCallback(() => {
-    return getBookmarks().sections[0].articles.some((element) => (element.id === article.id))
+    return getBookmarks().some((element) => (element.id === article.id))
   }, [article.id])
 
-  const [isAddButton, setIsAddButton] = useState(!isArticleBookmarked());
+  const [isAddButton, setIsAddButton] = useState(!isArticleBookmarked())
   const { addMessage } = useLineToday()
   
   function handleAddBookmark() {
-    const allSectionData = getBookmarks();
+    const allArticles = getBookmarks()
   
     if (!isArticleBookmarked()) {
-      allSectionData.sections[0].articles.push(article)
+      allArticles.push(article)
     }
-    addMessage('Bookmark', 'Artikel berhasil di bookmark')
-    localStorage.setItem('bookmarkedArticles', JSON.stringify(allSectionData))
+    storeBookmarks(allArticles)
     setIsAddButton(false)
+
+    addMessage('Bookmark', 'Artikel berhasil di bookmark')
   }
 
   function handleDeleteBookmark() {
-    let allSectionData = getBookmarks();
+    let allArticles = getBookmarks()
     let temp = []
     
-    for (const element of allSectionData.sections[0].articles) {
+    for (const element of allArticles) {
       if (element.id !== article.id) {
         temp.push(element)
       }
     }
-    allSectionData.sections[0].articles = temp
-    addMessage('Bookmark', 'Bookmark berhasil dihapus')
-  
-    localStorage.setItem('bookmarkedArticles', JSON.stringify(allSectionData))
-    setArticlesGroup(allSectionData)
+    allArticles = temp
+    
+    storeBookmarks(allArticles)
     setIsAddButton(!isArticleBookmarked())
+
+    addMessage('Bookmark', 'Bookmark berhasil dihapus')
   }
 
   useEffect(() => {
@@ -49,7 +57,11 @@ export default function BookmarkButton({article, setArticlesGroup}) {
   }, [isArticleBookmarked])
 
   return (
-    <Button variant={isAddButton ? 'light' : 'success'} onClick={isAddButton ? handleAddBookmark : handleDeleteBookmark} className="bookmark-button">
+    <Button 
+      variant={isAddButton ? 'light' : 'success'} 
+      onClick={isAddButton ? handleAddBookmark : handleDeleteBookmark} 
+      className="bookmark-button"
+    >
       <Bookmark />
     </Button>
   )

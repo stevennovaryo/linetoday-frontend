@@ -34,7 +34,7 @@ export default function SubSection({subSectionData}) {
   }
 
   
-  
+  // only render section of there are articles inside
   function renderSection() {
     let allValidArticles = findValidArticles()
     
