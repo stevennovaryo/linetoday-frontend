@@ -39,7 +39,9 @@
     color: rgb(0, 0, 0) !important;
 }
 
-.navigation-bar {
-    padding: 0 !important;
-    height: 3.25rem;
+@media(max-width:991px) {
+    .navigation-bar {
+        position: relative !important;
+        top: 0;
+    }
 }

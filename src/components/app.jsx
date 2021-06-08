@@ -4,7 +4,6 @@ import Routes from '../router'
 import './style.scss'
 
 export default function App() {
-  console.log('hello')
   return (
     <LineTodayProvider>
       <Container className='main-container'>

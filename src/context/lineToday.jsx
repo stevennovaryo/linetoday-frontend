@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { serviceLineToday } from '../services/lineToday'
 import Loading from '../components/loading'
 import initializeLocalStorage from '../constants/storage'
+import { NEWSFEED } from '../constants/display'
 
 const LineTodayContext = React.createContext()
 
@@ -16,7 +17,7 @@ export function LineTodayProvider({children}) {
       case "ADD":
         action.payload.createdAt = Date.now()
         messages = [...state, action.payload]
-        if (messages.length > 3) messages.shift()
+        if (messages.length > NEWSFEED.MAXIMUM_POPUP) messages.shift()
         return messages
 
       case "DELETE":
@@ -30,7 +31,7 @@ export function LineTodayProvider({children}) {
 
       case "DELETE_TIMEOUT":
         return state.filter((message) => {
-          return Date.now() - message.createdAt < 2900
+          return Date.now() - message.createdAt < NEWSFEED.POPUP_TIMEOUT
         })
       
       default:
@@ -57,7 +58,7 @@ export function LineTodayProvider({children}) {
       setMessages({
         type: 'DELETE_TIMEOUT',
       })
-    }, 3000)
+    }, NEWSFEED.POPUP_TIMEOUT)
   }
 
   useEffect(() => {

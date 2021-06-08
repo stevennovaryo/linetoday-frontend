@@ -1,0 +1,5 @@
+export const NEWSFEED = {
+  NAVBAR_BUTTON_COUNT: 6,
+  MAXIMUM_POPUP: 3,
+  POPUP_TIMEOUT: 3000, // in ms
+}

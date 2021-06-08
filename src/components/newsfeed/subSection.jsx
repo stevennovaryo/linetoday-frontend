@@ -53,8 +53,6 @@ export default function SubSection({subSectionData}) {
 
   const renderedSection = renderSection()
 
-  // console.log(subSectionData)
-
   if (renderedSection) {
     return (
       <Card className="p-1 my-3" border="light">

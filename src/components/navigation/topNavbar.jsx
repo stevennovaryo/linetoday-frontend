@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, NavDropdown, Nav, Container } from 'react-bootstrap'
 import { useLocation, Link } from 'react-router-dom'
+import { NEWSFEED } from '../../constants/display'
 import { useLineToday } from '../../context/lineToday'
 import { specialSectionsMap } from './specialSections'
 import './style.scss'
@@ -10,11 +11,6 @@ export default function TopNavbar() {
   
   const location = useLocation()
   const currentSectionName = location.pathname === '/' ? 'top' : location.pathname.slice(1)
-  // TODO
-  // Tambah dropdown untuk selection > 7
-  // Tambah fitur putihkan button jika berada di laman tsb
-  console.log(currentSectionName)
-
 
   function getNavButton(sectionData) {
     let cssClass = 'nav-button'
@@ -29,23 +25,27 @@ export default function TopNavbar() {
     )
   }
 
+  function getNavButtons(multipleSectionData) {
+    return multipleSectionData.map((sectionData) => getNavButton(sectionData))
+  }
+
   function createDropDown() {
     return (
       <NavDropdown title='Berita Lainnya' id='collasible-nav-dropdown' className='nav-dropdown'>
-        { allSectionData.slice(7, -1).map((sectionData) => getNavButton(sectionData)) }
+        { getNavButtons(allSectionData.slice(NEWSFEED.NAVBAR_BUTTON_COUNT, -1)) }
       </NavDropdown>
     )
   }
 
-  const allSectionButton = allSectionData.slice(0, 7).map((sectionData) => getNavButton(sectionData))
+  const allSectionButton = getNavButtons(allSectionData.slice(0, NEWSFEED.NAVBAR_BUTTON_COUNT))
 
-  const specialSectionsButton = specialSectionsMap.map((sectionData) => getNavButton(sectionData))
+  const specialSectionsButton = getNavButtons(specialSectionsMap)
 
   const sectionNavigation = (
     <Navbar.Collapse id='responsive-navbar-nav'>
       <Nav className='me-auto'>
         { allSectionButton }
-        { allSectionData.length > 6 && createDropDown() }
+        { allSectionData.length > NEWSFEED.NAVBAR_BUTTON_COUNT && createDropDown() }
       </Nav>
       <Nav>
         { specialSectionsButton }
@@ -55,7 +55,7 @@ export default function TopNavbar() {
 
 
   return (
-    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' sticky='top'>
+    <Navbar collapseOnSelect className='navigation-bar' expand='lg' bg='dark' variant='dark' sticky='top'>
       <Container>
         <Navbar.Brand className='nav-brand'>LINE TODAY</Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
