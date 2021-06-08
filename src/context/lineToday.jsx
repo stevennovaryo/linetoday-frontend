@@ -10,13 +10,59 @@ export function useLineToday() {
 }
 
 export function LineTodayProvider({children}) {
-  const [allData, setAllData] = useReducer((request, action) => action, null)
-  const [allSectionData, setallSectionData] = useReducer((request, action) => action, null)
+  function editMessages(state, action) {
+    let messages = []
+    switch (action.type) {
+      case "ADD":
+        action.payload.createdAt = Date.now()
+        messages = [...state, action.payload]
+        if (messages.length > 3) messages.shift()
+        return messages
+
+      case "DELETE":
+        messages = []
+        let index = action.payload
+        for (let i = 0; i < state.length; i++) {
+          if (i === index) continue
+          messages.push(state[i])
+        }
+        return messages
+
+      case "DELETE_TIMEOUT":
+        return state.filter((message) => {
+          return Date.now() - message.createdAt < 2900
+        })
+      
+      default:
+        return state
+    }
+  }
+
+  
+  const [allData, setAllData] = useState(null)
+  const [allSectionData, setallSectionData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [messages, setMessages] = useReducer(editMessages, [])
+  
+  function addMessage(title, content) {
+    setMessages({
+      type: 'ADD',
+      payload: {
+        title: title,
+        content: content,
+      }
+    })
+
+    setTimeout(() => {
+      setMessages({
+        type: 'DELETE_TIMEOUT',
+      })
+    }, 3000)
+  }
 
   useEffect(() => {
     setLoading(true)
-    initializeLocalStorage();
+    initializeLocalStorage()
 
 
     serviceLineToday().then( res => {
@@ -30,6 +76,9 @@ export function LineTodayProvider({children}) {
   const value = {
     allData,
     allSectionData,
+    messages,
+    setMessages,
+    addMessage,
   }
 
   return (

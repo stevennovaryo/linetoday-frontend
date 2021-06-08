@@ -3,7 +3,7 @@ import { LineTodayProvider } from '../context/lineToday'
 import Routes from '../router'
 import './style.scss'
 
-function App() {
+export default function App() {
   console.log('hello')
   return (
     <LineTodayProvider>
@@ -13,5 +13,3 @@ function App() {
     </LineTodayProvider>
   )
 }
-
-export default App

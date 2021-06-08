@@ -3,3 +3,25 @@
     padding: 0 !important;
     height: 100vh;
 }
+
+.popup-container {
+    position: fixed;
+    min-height: 2rem;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.toast-header button {
+    margin-left: auto;
+    background-color: alpha($color: #000000);
+    border: none;
+    font-weight: bolder;
+    border-radius: 50%;
+    color: rgb(50, 50, 50);
+}
+
+.toast-header .sr-only {
+    display: none;
+}

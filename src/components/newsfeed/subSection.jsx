@@ -14,10 +14,10 @@ export default function SubSection({subSectionData}) {
   
 
   const [articlesGroup, setArticlesGroup] = useReducer(changeArticleGroup, subSectionData.sections)
-  const [sectionTitle, setSectionTitle] = useState(subSectionData.title)
+  const [sectionTitle, ] = useState(subSectionData.title)
 
   function isArticlevalid(article) {
-    return article.status == "AVAILABLE" && article.title && article.thumbnail && article.url
+    return article.status === "AVAILABLE" && article.title && article.thumbnail && article.url
   }
 
   function findValidArticles() {

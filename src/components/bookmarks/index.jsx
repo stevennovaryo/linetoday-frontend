@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SubSection from '../newsfeed/subSection';
 
 export default function Bookmarks() {

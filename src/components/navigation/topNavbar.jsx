@@ -9,7 +9,7 @@ export default function TopNavbar() {
   const { allSectionData } = useLineToday()
   
   const location = useLocation()
-  const currentSectionName = location.pathname == '/' ? 'top' : location.pathname.slice(1)
+  const currentSectionName = location.pathname === '/' ? 'top' : location.pathname.slice(1)
   // TODO
   // Tambah dropdown untuk selection > 7
   // Tambah fitur putihkan button jika berada di laman tsb
@@ -18,7 +18,7 @@ export default function TopNavbar() {
 
   function getNavButton(sectionData) {
     let cssClass = 'nav-button'
-    if (sectionData.name.toLowerCase() == currentSectionName.toLowerCase()) {
+    if (sectionData.name.toLowerCase() === currentSectionName.toLowerCase()) {
       cssClass += ' nav-button-selected'
     }
 

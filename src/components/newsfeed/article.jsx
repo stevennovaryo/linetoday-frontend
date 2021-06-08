@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Col, Image } from 'react-bootstrap'
-import BookmarkButton from '../bookmarks/button'
+import { Card } from 'react-bootstrap'
+import BookmarkButton from '../bookmarks/bookmarkButton'
 import './style.scss'
 
 export default function Article({articleData, setArticlesGroup}) {
