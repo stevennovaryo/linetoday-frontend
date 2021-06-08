@@ -13,7 +13,7 @@ export default function TopNavbar() {
   const currentSectionName = location.pathname === '/' ? 'top' : location.pathname.slice(1)
 
 
-  function getNavButton(sectionData) {
+  function createNavButton(sectionData) {
     let cssClass = 'nav-button'
     if (sectionData.name.toLowerCase() === currentSectionName.toLowerCase()) {
       cssClass += ' nav-button-selected'
@@ -26,22 +26,22 @@ export default function TopNavbar() {
     )
   }
 
-  function getNavButtons(multipleSectionData) {
-    return multipleSectionData.map((sectionData) => getNavButton(sectionData))
+  function createNavButtons(multipleSectionData) {
+    return multipleSectionData.map((sectionData) => createNavButton(sectionData))
   }
 
 
   function createDropDown() {
     return (
       <NavDropdown title='Berita Lainnya' id='collasible-nav-dropdown' className='nav-dropdown'>
-        { getNavButtons(allSectionData.slice(NEWSFEED.NAVBAR_BUTTON_COUNT, -1)) }
+        { createNavButtons(allSectionData.slice(NEWSFEED.NAVBAR_BUTTON_COUNT, -1)) }
       </NavDropdown>
     )
   }
 
-  const allSectionButton = getNavButtons(allSectionData.slice(0, NEWSFEED.NAVBAR_BUTTON_COUNT))
+  const allSectionButton = createNavButtons(allSectionData.slice(0, NEWSFEED.NAVBAR_BUTTON_COUNT))
 
-  const specialSectionsButton = getNavButtons(specialSectionsMap)
+  const specialSectionsButton = createNavButtons(specialSectionsMap)
 
   const sectionNavigation = (
     <Navbar.Collapse id='responsive-navbar-nav'>

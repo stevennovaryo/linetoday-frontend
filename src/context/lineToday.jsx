@@ -3,6 +3,7 @@ import { serviceLineToday } from '../services/lineToday'
 import Loading from '../components/loading'
 import initializeLocalStorage from '../constants/storage'
 import { NEWSFEED } from '../constants/display'
+import { editMessages } from './reducer'
 
 const LineTodayContext = React.createContext()
 
@@ -10,36 +11,7 @@ export function useLineToday() {
   return useContext(LineTodayContext)
 }
 
-export function LineTodayProvider({children}) {
-  function editMessages(state, action) {
-    let messages = []
-    switch (action.type) {
-      case "ADD":
-        action.payload.createdAt = Date.now()
-        messages = [...state, action.payload]
-        if (messages.length > NEWSFEED.MAXIMUM_POPUP) messages.shift()
-        return messages
-
-      case "DELETE":
-        messages = []
-        let index = action.payload
-        for (let i = 0; i < state.length; i++) {
-          if (i === index) continue
-          messages.push(state[i])
-        }
-        return messages
-
-      case "DELETE_TIMEOUT":
-        return state.filter((message) => {
-          return Date.now() - message.createdAt < NEWSFEED.POPUP_TIMEOUT
-        })
-      
-      default:
-        return state
-    }
-  }
-
-  
+export function LineTodayProvider({children}) { 
   const [allData, setAllData] = useState(null)
   const [allSectionData, setallSectionData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -61,7 +33,7 @@ export function LineTodayProvider({children}) {
     }, NEWSFEED.POPUP_TIMEOUT)
   }
 
-  
+
   useEffect(() => {
     setLoading(true)
     initializeLocalStorage()

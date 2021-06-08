@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { useLineToday } from '../context/lineToday'
 import Newsfeed from '../components/newsfeed/newsfeed'
 import TopNavbar from '../components/navigation/topNavbar'
-import Bookmarks from '../components/bookmarks'
+import Bookmarks from '../components/bookmarks/bookmark'
 import PopupContainer from '../components/popupMessage'
 
 export default function Routes() {
